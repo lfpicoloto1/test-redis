@@ -1,6 +1,6 @@
 ---
 - name: set-redis
-  hosts: myserver
+  hosts: localhost
   become: true
   tasks:
     - name: Atualizar pacotes
