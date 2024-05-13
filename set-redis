@@ -1,0 +1,30 @@
+---
+- name: set-redis
+  hosts: 172.30.0.111
+  become: true
+  tasks:
+    - name: Atualizar pacotes
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Instalar o servidor Redis
+      apt:
+        name: redis-server
+        state: present
+
+    - name: Permitir conexões externas ao Redis
+      lineinfile:
+        path: /etc/redis/redis.conf
+        regexp: '^bind'
+        line: 'bind 0.0.0.0'
+
+    - name: Reiniciar o serviço Redis
+      systemd:
+        name: redis-server
+        state: restarted
+
+    - name: Habilitar o serviço Redis na inicialização do sistema
+      systemd:
+        name: redis-server
+        enabled: yes
