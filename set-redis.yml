@@ -1,6 +1,6 @@
 ---
 - name: set-redis
-  hosts: 172.30.0.111
+  hosts: myserver
   become: true
   tasks:
     - name: Atualizar pacotes
